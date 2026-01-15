@@ -4,6 +4,7 @@ const state = {
     loading: false,
     error: null
 };
+const app = document.getElementById("task-list");
 
 async function fetchInitialTasks() {
     state.loading = true;
@@ -27,7 +28,6 @@ async function fetchInitialTasks() {
 }
 
 function render() {
-    const app = document.getElementById("task-list");
 
     if (state.loading) {
         app.innerHTML = "<div id='loading'>Loading...</div>";
@@ -91,11 +91,15 @@ app.addEventListener("click", (e) => {
     if (e.target.dataset.action === "delete") {
         deleteTask(Number(e.target.dataset.id));
     }
-    if (e.target.dataset.action === "add") {
-        addTask();
-    }
 });
 
+document.getElementById("add-task-button").addEventListener("click", () => {
+    addTask();
+});
+
+document.getElementById("filter-options").addEventListener("change", (e) => {
+    onFilterChange(e.target);
+});
 
 function onFilterChange(element) {
     state.filter = element.value;
