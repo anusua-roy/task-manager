@@ -1,0 +1,23 @@
+#app {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#task-filter-bar {
+  margin: 20px 0px;
+  display: flex;
+  gap: 10px;
+  justify-content: start;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: #f4f4f4;
+}

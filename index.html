@@ -23,15 +23,26 @@
 
     <main id="app" role="main">
       <!-- App content will be rendered here -->
-      <section id="task-input-section">
-        <input
-          type="text"
-          id="task-input"
-          placeholder="Enter a new task"
-          aria-label="Task input"
-        />
-        <button id="add-task-button" aria-label="Add task">Add Task</button>
+      <section id="task-filter-bar">
+        <div id="task-add">
+          <input
+            type="text"
+            id="task-input"
+            placeholder="Enter a new task"
+            aria-label="Task input"
+          />
+          <button id="add-task-button" aria-label="Add task">Add Task</button>
+        </div>
+        <div id="filter-tasks">
+          <label for="filter-tasks">Filter Tasks:</label>
+          <select id="filter-options" aria-label="Filter tasks">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Active</option>
+          </select>
+        </div>
       </section>
+      <section id="task-list"></section>
     </main>
 
     <footer>
