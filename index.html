@@ -31,14 +31,24 @@
             placeholder="Enter a new task"
             aria-label="Task input"
           />
-          <button id="add-task-button" aria-label="Add task">Add Task</button>
+          <button
+            id="add-task-button"
+            aria-label="Add task"
+            onclick="addTask()"
+          >
+            Add Task
+          </button>
         </div>
         <div id="filter-tasks">
           <label for="filter-tasks">Filter Tasks:</label>
-          <select id="filter-options" aria-label="Filter tasks">
+          <select
+            id="filter-options"
+            aria-label="Filter tasks"
+            onchange="onFilterChange(this)"
+          >
             <option value="all">All</option>
             <option value="completed">Completed</option>
-            <option value="pending">Active</option>
+            <option value="active">Active</option>
           </select>
         </div>
       </section>

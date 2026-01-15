@@ -38,8 +38,15 @@ function render() {
         return;
     }
 
+    const selectedFilterOption = document.getElementById("filter-options").value;
+    let filteredTasks = state.tasks;
+    if (selectedFilterOption === "active") {
+        filteredTasks = state.tasks.filter(t => !t.completed);
+    } else if (selectedFilterOption === "completed") {
+        filteredTasks = state.tasks.filter(t => t.completed);
+    }
     // TODO: add UI components here
-    console.log(state.tasks)
+    console.log("Rendering tasks:", filteredTasks);
     app.innerHTML = `<table id="tasks-table">
     <thead>
       <tr>
@@ -49,7 +56,7 @@ function render() {
         <th>Actions</th>
       </tr></thead>
     <tbody>
-    ${state.tasks.map(task => `
+    ${filteredTasks.map(task => `
       <tr>
         <td>${task.id}</td>
         <td>${task.title}</td>
@@ -63,6 +70,35 @@ function render() {
     </tbody>
     </table>`; // Placeholder
 
+}
+
+function onFilterChange(element) {
+    state.filter = element.value;
+    render();
+}
+
+function toggleTask(id) {
+    const task = state.tasks.find(t => t.id === id);
+    task.completed = !task.completed;
+    render();
+}
+
+function deleteTask(id) {
+    state.tasks = state.tasks.filter(t => t.id !== id);
+    render();
+}
+
+function addTask() {
+    const titleInput = document.getElementById("task-input");
+    if (titleInput.value.trim() === "") return;
+    const newTask = {
+        id: state.tasks.length ? Math.max(...state.tasks.map(t => t.id)) + 1 : 1,
+        title: titleInput.value,
+        completed: false
+    }
+    state.tasks.push(newTask);
+    titleInput.value = "";
+    render();
 }
 
 onload = () => {
