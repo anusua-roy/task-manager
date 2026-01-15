@@ -108,6 +108,7 @@ function onFilterChange(element) {
 
 function toggleTask(id) {
     const task = state.tasks.find(t => t.id === id);
+    if (!task) return;
     task.completed = !task.completed;
     render();
 }
@@ -129,6 +130,11 @@ function addTask() {
     titleInput.value = "";
     render();
 }
+
+document.getElementById("task-input")
+    .addEventListener("keydown", (e) => {
+        if (e.key === "Enter") addTask();
+    });
 
 onload = () => {
     fetchInitialTasks();
