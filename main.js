@@ -12,6 +12,7 @@ async function fetchInitialTasks() {
     try {
         const response = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=10");
         const data = await response.json();
+        // state.tasks = [];
         state.tasks = data.map(t => ({
             id: t.id,
             title: t.title,
@@ -38,7 +39,12 @@ function render() {
         return;
     }
 
-    const selectedFilterOption = document.getElementById("filter-options").value;
+    if (state.tasks.length === 0) {
+        app.innerHTML = `<div id="no-tasks">No tasks available. Please add a task.</div>`;
+        return;
+    }
+
+    const selectedFilterOption = state.filter;
     let filteredTasks = state.tasks;
     if (selectedFilterOption === "active") {
         filteredTasks = state.tasks.filter(t => !t.completed);
@@ -47,7 +53,13 @@ function render() {
     }
     // TODO: add UI components here
     console.log("Rendering tasks:", filteredTasks);
-    app.innerHTML = `<table id="tasks-table">
+    app.innerHTML = `
+    <div id="task-count">
+    <div>Total Tasks: ${state.tasks.length}</div>
+    <div>Active Tasks: ${state.tasks.filter(t => !t.completed).length}</div>
+    <div>Completed Tasks: ${state.tasks.filter(t => t.completed).length}</div>
+    </div>
+    <table id="tasks-table">
     <thead>
       <tr>
         <th>ID</th>
@@ -62,8 +74,8 @@ function render() {
         <td>${task.title}</td>
         <td>${task.completed ? "Completed" : "Active"}</td>
         <td>
-          <button onclick="toggleTask(${task.id})">${task.completed ? "Mark Active" : "Mark Completed"}</button>
-          <button onclick="deleteTask(${task.id})">Delete</button>
+          <button data-action="toggle" data-id="${task.id}">${task.completed ? "Mark Active" : "Mark Completed"}</button>
+          <button data-action="delete" data-id="${task.id}">Delete</button>
         </td>
       </tr>
     `).join("")}
@@ -71,6 +83,19 @@ function render() {
     </table>`; // Placeholder
 
 }
+
+app.addEventListener("click", (e) => {
+    if (e.target.dataset.action === "toggle") {
+        toggleTask(Number(e.target.dataset.id));
+    }
+    if (e.target.dataset.action === "delete") {
+        deleteTask(Number(e.target.dataset.id));
+    }
+    if (e.target.dataset.action === "add") {
+        addTask();
+    }
+});
+
 
 function onFilterChange(element) {
     state.filter = element.value;
