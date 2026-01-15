@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Task Manager — simple vanilla JS task manager"
+    />
+    <title>Task Manager</title>
+
+    <!-- Favicons / theme -->
+    <!-- <link rel="icon" href="favicon.ico" /> -->
+    <!-- <meta name="theme-color" content="#0d6efd" /> -->
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Task Manager</h1>
+    </header>
+
+    <main id="app" role="main">
+      <!-- App content will be rendered here -->
+      <section id="task-input-section">
+        <input
+          type="text"
+          id="task-input"
+          placeholder="Enter a new task"
+          aria-label="Task input"
+        />
+        <button id="add-task-button" aria-label="Add task">Add Task</button>
+      </section>
+    </main>
+
+    <footer>
+      <small>&copy; <span id="year"></span> Task Manager</small>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // Minimal starter script
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script src="main.js" defer></script>
+  </body>
+</html>
